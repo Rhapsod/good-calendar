@@ -1,4 +1,6 @@
-Created by Codrops
+Originally Created by Codrops
+
+Calendar js and css have some changes (on multi-events supporting) for Good Calendar implementation.
 
 Notable Changes
 ===============
