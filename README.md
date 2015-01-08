@@ -1,6 +1,6 @@
 Good Calender is an implementation based on Calendario.
 
-Calendario:
+About Calendario:
 
 [article on Codrops](http://tympanus.net/codrops/?p=12416)
 
