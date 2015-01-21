@@ -68,16 +68,20 @@ if __name__ == "__main__":
 			date_str = this_date.isoformat()[:10]
 			
 			for elem in item.find_elements_by_class_name("fbCalendarItem"):
-				url = elem.find_elements_by_xpath("table/tbody/tr/td[1]/a")[0].get_attribute("href")
-				clock = elem.find_elements_by_xpath("table/tbody/tr/td[1]/a/div")[0].text
-				title = elem.find_elements_by_xpath("table/tbody/tr/td[2]/div/div/div/div[2]/div/div[2]/div[1]/a")[0].text
 
-				location = ''
-				location_elem = elem.find_elements_by_xpath("table/tbody/tr/td[2]/div/div/div/div[2]/div/div[2]/span/span")
-				if len( location_elem ) > 0:
-					location = location_elem[0].text
-				# print clock, title.encode("utf-8"), url, location
-				cur.execute( "INSERT OR REPLACE INTO event VALUES (?, ?, ?, ?, ?) ", (url, date_str, clock + ': ' + title, location, source) )
+				try:
+					url = elem.find_elements_by_xpath("table/tbody/tr/td[1]/a")[0].get_attribute("href")
+					clock = elem.find_elements_by_xpath("table/tbody/tr/td[1]/a/div")[0].text
+					title = elem.find_elements_by_xpath("table/tbody/tr/td[2]/div/div/div/div[2]/div/div[2]/div[1]/a")[0].text
+
+					location = ''
+					location_elem = elem.find_elements_by_xpath("table/tbody/tr/td[2]/div/div/div/div[2]/div/div[2]/span/span")
+					if len( location_elem ) > 0:
+						location = location_elem[0].text
+					# print clock, title.encode("utf-8"), url, location
+					cur.execute( "INSERT OR REPLACE INTO event VALUES (?, ?, ?, ?, ?) ", (url, date_str, clock + ': ' + title, location, source) )
+				except Exception as e:
+					print e, "skipped item: ", date_str
 
 	except Exception as e:
 		print e
