@@ -4,23 +4,29 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 import time
+import sqlite3
 
 # for server without a display
-from pyvirtualdisplay import Display
-display = Display(visible=0, size=(800, 600))
-display.start()
-
-# for server: replace the file location
-data_output_file = 'data.js'
+# from pyvirtualdisplay import Display
+# display = Display(visible=0, size=(800, 600))
+# display.start()
 
 ##### account here #####
 gc_email = ''
 gc_pass = ''
 ########################
 
-def process_one_month(browser):
+# sqlite db
+con = sqlite3.connect("data.db")
+# auto commit
+con.isolation_level = None
+cur = con.cursor()
+cur.execute( "CREATE TABLE IF NOT EXISTS event (url text primary key, date text, title text, location text, source text)" )
 
-	output = open( data_output_file, 'a' )
+source = 'square'
+
+
+def process_one_month(browser):
 
 	# get items
 	time.sleep(5)
@@ -45,7 +51,8 @@ def process_one_month(browser):
 		day = date_raw.split("x")[2]
 		if len(day) == 1:
 			day = '0' + day
-		date = month + '-' + day + '-' + year
+		# order for db
+		date = year + '-' + month + '-' + day
 
 		events = []
 		for event_div in events_div:
@@ -55,25 +62,13 @@ def process_one_month(browser):
 
 		# print date, events
 
-		# append data.js
-		output.write("'" + date + "': [")
-
 		# write events
 		for event in events:
 			(href, title) = event
-			output.write( ("'<a href=\"" + href + '" target="_blank">' + title + "</a>',\n").encode("utf-8")  )
-
-		output.write("],\n\n");
-
-	output.close()
+			cur.execute( "INSERT OR REPLACE INTO event VALUES (?, ?, ?, ?, ?) ", (href, date, title, '', source) )
 
 
 if __name__ == "__main__":
-
-	# empty data file
-	output = open( data_output_file, 'w' )
-	output.write("var codropsEvents = {\n")
-	output.close()
 
 	browser = webdriver.Firefox() # Get local session of firefox
 	try:
@@ -108,15 +103,13 @@ if __name__ == "__main__":
 
 		# quit
 		time.sleep(2)
-		browser.quit()	
-
 	except:
-		browser.quit()
+		print 'Except.'
 
-	# append end of the file
-	output = open( data_output_file, 'a' )
-	output.write("};")
-	output.close()
+	browser.quit()
+
+	# close
+	con.close()
 
 	# server only
-	display.stop()
+	# display.stop()

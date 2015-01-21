@@ -65,8 +65,9 @@
 					showClose: true,
 					showCloseText: 'X',
 					onBlurContainer: '.container',
-					template: '<p style="margin: 18px 0 20px;padding: 5px 10px;"> <strong>Good Calendar V1.0 </strong> </p>'
+					template: '<p style="margin: 12px 0 10px;padding: 5px 10px;"> <strong>Good Calendar V1.0 </strong> </p>'
 						+ '<p>Developed by: Ke Mao @ LH</p>'
+						+ '<p>Supported by: Goodenough College Software</p>'
 						+ '<p>Theme by: Codrops</p>'
 						+ '<p>Feedback: kemao.py at gmail.com</p>'
 				});				
