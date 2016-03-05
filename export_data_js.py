@@ -20,7 +20,15 @@ for event in cur.execute('SELECT * FROM event ORDER BY date, title'):
 		pass
 	else:
 		date_events[ date ] = []
-	date_events[ date ].append( event )
+	exists = False
+	for tevent in date_events[ date ]:
+		(turl, tdate, ttitle, tlocation, tsource) = tevent
+		if ttitle == title:
+			exists = True
+			break
+			
+	if not exists:		
+		date_events[ date ].append( event )
 
 for key in sorted( date_events.keys() ):
 
@@ -29,7 +37,7 @@ for key in sorted( date_events.keys() ):
 
 	for event in date_events[ key ]:
 		(url, date, title, location, source) = event
-		title = title.replace("'", "").replace('"', '')
+		title = title.replace("'", "").replace('"', '').replace(u'‘', '').replace(u'’', '')
 		location = location.replace("'", "").replace('"', '')
 
 		if source == 'facebook':

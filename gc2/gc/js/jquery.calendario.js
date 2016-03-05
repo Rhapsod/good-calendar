@@ -330,6 +330,7 @@
           else cellClasses += 'fc-future ';
 
           if(content !== '') cellClasses += 'fc-content';
+          if (past) continue;
           html += (cellClasses !== '' ? '<div class="' + cellClasses.trim() + '">' : '<div>') + inner + '</div>';
         }
 

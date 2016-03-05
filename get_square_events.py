@@ -6,9 +6,9 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 # for server without a display
-from pyvirtualdisplay import Display
-display = Display(visible=0, size=(800, 600))
-display.start()
+# from pyvirtualdisplay import Display
+# display = Display(visible=0, size=(800, 600))
+# display.start()
 
 # for server: replace the file location
 data_output_file = 'data.js'
@@ -119,4 +119,4 @@ if __name__ == "__main__":
 	output.close()
 
 	# server only
-	display.stop()
+	# display.stop()

@@ -87,22 +87,22 @@ if __name__ == "__main__":
 		password.send_keys(Keys.RETURN)
 
 		# calendar
-		time.sleep(2)
+		time.sleep(5)
 		browser.get("http://square.goodenough.ac.uk/eventcalendar.aspx")
 		process_one_month( browser )
 
 		# calendar-next month
-		time.sleep(2)
+		time.sleep(5)
 		next_button = browser.find_element_by_id("monthRight")
 		next_button.click()
 		process_one_month( browser )
 
 		# logout
-		time.sleep(2)
+		time.sleep(5)
 		browser.get("http://square.goodenough.ac.uk/logout.aspx")
 
 		# quit
-		time.sleep(2)
+		time.sleep(5)
 	except:
 		print 'Except.'
 

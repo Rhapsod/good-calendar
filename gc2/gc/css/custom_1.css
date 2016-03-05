@@ -268,7 +268,7 @@ body {
 	padding: 3px 5px;
 	border-radius: 3px;
 	white-space: nowrap;
-	/*overflow: hidden;*/
+	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 100%;
 	margin-bottom: 1px;
@@ -443,7 +443,7 @@ body {
   opacity: 1;
 }
 
-@media screen and (max-width: 880px) , screen and (max-height: 450px) {
+/*@media screen and (max-width: 880px) , screen and (max-height: 450px) {*/
 	html, body, .container {
 		height: auto;
 	}
@@ -536,4 +536,4 @@ body {
 		font-size: 10px;
 		text-transform: uppercase;
 	}
-}
+/*}*/
